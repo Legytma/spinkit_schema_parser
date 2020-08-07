@@ -1,0 +1,3 @@
+[submodule "assets/schema"]
+	path = assets/schema
+	url = git@github.com:Legytma/schemas.git

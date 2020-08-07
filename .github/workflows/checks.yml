@@ -1,0 +1,43 @@
+name: Run analyze and tests
+on: pull_request
+jobs:
+  analyze-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: 'Setup Java'
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: 'Setup flutter'
+        uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+
+      - name: 'Install dependencies'
+        run: flutter pub get
+
+      - name: 'Execute Build Runner'
+        run: flutter packages pub run build_runner build --delete-conflicting-outputs
+
+      - name: 'Build example'
+        run: flutter build aot --target=example/lib/main.dart
+
+      - name: 'Flutter test coverage'
+        run: flutter test --coverage test
+
+      - name: 'Coverage'
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{secrets.CODECOV_TOKEN}} # not required for public repos
+          file: ./coverage/lcov.info
+
+      - name: 'Dart and Flutter Analizer'
+        uses: axel-op/dart-package-analyzer@v2
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
