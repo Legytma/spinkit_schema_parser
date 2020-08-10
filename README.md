@@ -97,9 +97,10 @@ class MyApp extends StatelessWidget {
 
 ## Next steps
 
-- [ ] Publish Package;
-- [ ] Make MVP;
-- [ ] Minimal documentation;
+- [x] Publish Package;
+- [x] Make MVP;
+- [x] Minimal documentation;
 - [x] Add list of default supported Widgets;
 - [x] Add list of default supported Types;
+- [ ] Add more spin implementations;
 - [ ] Create content about;
