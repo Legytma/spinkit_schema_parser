@@ -13,9 +13,6 @@
 # Convert JSON to Widget validating with JSON Schema for Flutter apps
 
 * [What is it](#what-is-it "What is it")
-  * [Motivation](#motivation "Motivation")
-  * [How this work](#how-this-work "How this work")
-    * [`TypeSchemaParser`](#typeschemaparser "TypeSchemaParser")
 * [TYPE SCHEMA PARSER SUPPORT](TYPE_SCHEMA_PARSER_SUPPORT.md "TYPE SCHEMA PARSER SUPPORT")
 * [Getting Started](#getting-started "Getting Started")
   * [Installation](#installation "Installation")
@@ -26,19 +23,7 @@
 
 ## What is it
 
-The [spinkit_schema_parser](https://pub.dev/packages/spinkit_schema_parser "spinkit_schema_parser") is a Flutter package implemented with base on [dynamic_widget](https://pub.dev/packages/dynamic_widget "dynamic_widget") package that produces widgets dynamically interpreting JSON objects.
-
-### Motivation
-
-
-### How this work
-
-
-#### `TypeSchemaParser`
-
-
-## Getting Started
-
+The [spinkit_schema_parser](https://pub.dev/packages/spinkit_schema_parser "spinkit_schema_parser") is a parser implementation to [flutter_spinkit](https://pub.dev/packages/flutter_spinkit "flutter_spinkit") Flutter package implemented with base on [schema_widget](https://pub.dev/packages/schema_widget "schema_widget") package that produces widgets dynamically interpreting JSON objects.
 
 ### Installation
 
@@ -60,16 +45,61 @@ $ flutter packages get
 
 ### Usage
 
+```dart
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:schema_widget/schema_widget.dart';
+import 'package:spinkit_schema_parser/spinkit_schema_parser.dart';
+
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'SpinKit Rotating Circle Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+          child: FutureBuilder(
+            future: GetIt.I.allReady(ignorePendingAsyncCreation: false),
+            builder: (buildContext, snapshot) {
+              if (snapshot.hasData) {
+                return SchemaWidget.parse<Widget>(context, {
+                  "type": "SpinKitRotatingCircle",
+                  "color": 0xFF000000,
+                });
+              }
+
+              return Container();
+            },
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+}
+```
 
 ## Next steps
 
-- [x] Publish Package;
-- [x] Make MVP;
-- [x] Minimal documentation;
-- [x] Change event binding of click event;
+- [ ] Publish Package;
+- [ ] Make MVP;
+- [ ] Minimal documentation;
 - [x] Add list of default supported Widgets;
 - [x] Add list of default supported Types;
-- [ ] Publish complementar packages;
-- [ ] Create example full functional apps;
 - [ ] Create content about;
-- [ ] Make a commercial product using the package;
