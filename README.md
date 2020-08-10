@@ -31,7 +31,7 @@ The [spinkit_schema_parser](https://pub.dev/packages/spinkit_schema_parser "spin
 ```yaml
 dependencies:
   get_it:
-  spinkit_schema_parser: ^1.0.0-5
+  spinkit_schema_parser: ^1.1.0-0
 ```
 * Install packages from the command line:
   with Flutter:
